@@ -70,8 +70,18 @@ export const GameBoard = () => {
 
   const handleReset = () => {
     if (confirm('¿Estás seguro de que quieres reiniciar el juego? Se borrarán todos los puntos.')) {
-      reset();
-      emit('resetGame');
+      const input = prompt('Ingrese el número de la pregunta para comenzar (1 para la primera):', '1');
+      let startIdx = 0;
+      
+      if (input !== null) {
+        const parsed = parseInt(input);
+        if (!isNaN(parsed) && parsed > 0) {
+            startIdx = parsed - 1; // Convert 1-based to 0-based
+        }
+      }
+      
+      reset(startIdx);
+      emit('resetGame', { startQuestionIndex: startIdx });
     }
   };
 

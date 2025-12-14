@@ -22,7 +22,7 @@ interface GameState {
   awardPoints: (team: number) => void;
   nextQuestion: () => void;
   incrementWrong: () => void;
-  reset: () => void;
+  reset: (startQuestionIndex?: number) => void;
   getBoardScore: () => void;
 }
 
@@ -115,24 +115,23 @@ export const useGameStore = create<GameState>((set, get) => ({
     set({ wrong: wrong + 1 });
   },
 
-  reset: () => {
+  reset: (startQuestionIndex = 0) => {
+    // Ensure index is within bounds
+    const { questions, allData } = get();
+    let targetQ = startQuestionIndex;
+    
+    if (targetQ < 0 || targetQ >= questions.length) {
+      targetQ = 0;
+    }
+
     set({
-      currentQ: 0,
+      currentQ: targetQ,
       wrong: 0,
       boardScore: 0,
       team1Score: 0,
       team2Score: 0,
       flippedCards: new Set(),
-      // Reset answers to first question
-      // We need to re-fetch get() to access full state if needed, but simplistic reset is fine
-      // Actually we should reload the first question's answers
+      currentAnswers: questions.length > 0 ? (allData[questions[targetQ]] || []) : [],
     });
-    // Trigger a questions reload for Q0 logic? 
-    // It's cleaner to just set Q0 and let component/logic handle it, 
-    // but we need currentAnswers to match Q0 immediately.
-    const { questions, allData } = get();
-    if (questions.length > 0) {
-        set({ currentAnswers: allData[questions[0]] || [] });
-    }
   },
 }));

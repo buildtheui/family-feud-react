@@ -127,7 +127,8 @@ export const useSocket = () => {
           break;
         case 'resetGame':
           stopDrumRoll();
-          reset();
+          // data.startQuestionIndex comes from the event payload
+          reset(data.startQuestionIndex);
           break;
       }
     });

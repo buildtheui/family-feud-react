@@ -25,6 +25,7 @@ export interface SocketEventData {
   trigger: SocketEvent;
   num?: number;
   team?: number;
+  startQuestionIndex?: number;
 }
 
 export type Role = 'player' | 'host';
