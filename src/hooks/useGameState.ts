@@ -3,6 +3,7 @@ import type { Role, Answer } from '../types/game.types';
 
 interface GameState {
   role: Role;
+  hostAssigned: boolean;
   currentQ: number;
   wrong: number;
   boardScore: number;
@@ -15,6 +16,7 @@ interface GameState {
   
   // Actions
   setRole: (role: Role) => void;
+  setHostAssigned: (assigned: boolean) => void;
   setQuestions: (data: { [question: string]: Answer[] }) => void;
   flipCard: (index: number) => void;
   awardPoints: (team: number) => void;
@@ -36,7 +38,20 @@ export const useGameStore = create<GameState>((set, get) => ({
   allData: {},
   currentAnswers: [],
 
+  role: 'player',
+  hostAssigned: false,
+  currentQ: 0,
+  wrong: 0,
+  boardScore: 0,
+  team1Score: 0,
+  team2Score: 0,
+  flippedCards: new Set(),
+  questions: [],
+  allData: {},
+  currentAnswers: [],
+
   setRole: (role) => set({ role }),
+  setHostAssigned: (assigned) => set({ hostAssigned: assigned }),
 
   setQuestions: (data) => {
     const questions = Object.keys(data);

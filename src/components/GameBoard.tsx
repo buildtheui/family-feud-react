@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AnswerCard } from './AnswerCard';
 import { QuestionDisplay } from './QuestionDisplay';
 import { HostControls } from './HostControls';
@@ -8,11 +8,12 @@ import { useGameStore } from '../hooks/useGameState';
 import { useSocket } from '../hooks/useSocket';
 
 export const GameBoard = () => {
-  const [showHostButton, setShowHostButton] = useState(true);
   const { emit } = useSocket();
 
   const role = useGameStore((state) => state.role);
+  const hostAssigned = useGameStore((state) => state.hostAssigned);
   const setRole = useGameStore((state) => state.setRole);
+  const setHostAssigned = useGameStore((state) => state.setHostAssigned);
   const currentAnswers = useGameStore((state) => state.currentAnswers);
   const flippedCards = useGameStore((state) => state.flippedCards);
   const flipCard = useGameStore((state) => state.flipCard);
@@ -26,9 +27,14 @@ export const GameBoard = () => {
   const questions = useGameStore((state) => state.questions);
   const currentQ = useGameStore((state) => state.currentQ);
 
+  // Sync local setShowHostButton behavior with global state
+  // If we are host, or if hostAssigned is true, button should be hidden for us (handled by HostControls logic)
+  // HostControls logic: if (!isHost && !showHostButton) return null;
+  // We need to pass !hostAssigned as showHostButton
+  
   const handleMakeHost = () => {
     setRole('host');
-    setShowHostButton(false);
+    setHostAssigned(true); // Set locally immediately
     emit('hostAssigned');
   };
 
@@ -75,6 +81,9 @@ export const GameBoard = () => {
 
   const currentQuestion = questions[currentQ] || 'Cargando...';
   const isHost = role === 'host';
+  
+  // Show host button only if NO host is assigned yet
+  const showHostButton = !hostAssigned;
 
   const [audioEnabled, setAudioEnabled] = useState(false);
 

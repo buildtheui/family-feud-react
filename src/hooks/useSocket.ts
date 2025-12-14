@@ -114,6 +114,7 @@ export const useSocket = () => {
            break;
         case 'hostAssigned':
           // Host has been assigned - players should not show host button
+          useGameStore.getState().setHostAssigned(true);
           break;
         case 'wrong':
           stopDrumRoll();
