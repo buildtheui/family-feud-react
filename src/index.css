@@ -51,8 +51,12 @@ body {
   border-radius: 50%;
   background-color: var(--game-bg);
   box-shadow: 0 1px 24px 1px rgba(0, 0, 0, 0.48);
-  overflow: hidden; /* Ensure pseudo-element respects border radius */
-  z-index: 0; /* Establish stacking context */
+  /* overflow: hidden; Removed to prevent clipping content */
+  z-index: 0;
+  
+  /* Alignment Fixes */
+  align-content: center;
+  justify-content: center;
 }
 
 /* Pseudo-element for background image opacity */
@@ -63,12 +67,15 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
+  border-radius: 50%; /* Match parent shape */
   background-image: url('/img/background.svg');
   background-repeat: repeat;
   background-position: center center;
   opacity: 0.6;
   pointer-events: none;
   z-index: -1;
+  /* Ensure pattern doesn't bleed */
+  overflow: hidden; 
 }
 
 /* Score Boxes */
