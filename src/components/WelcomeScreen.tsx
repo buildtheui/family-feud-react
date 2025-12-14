@@ -122,7 +122,7 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
         <h1 className="font-black leading-none tracking-tighter"
             style={{
               position: 'absolute',
-              top: '5%',
+              top: '2%', /* Moved up */
               left: 0,
               width: '100%',
               textAlign: 'center',
@@ -133,7 +133,9 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               filter: 'drop-shadow(0px 4px 6px rgba(0,0,0,0.5))',
-              fontSize: 'min(18vh, 150px)', /* Height-based sizing */
+              fontSize: '15vh', /* Fallback */
+              // @ts-ignore
+              fontSize: 'min(15vh, 150px)',
               zIndex: 30
             }}
         >
@@ -144,7 +146,7 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
          <h1 className="font-bold"
           style={{
             position: 'absolute',
-            top: '38%',
+            top: '35%', /* Explicit Middle-Top */
             left: 0,
             width: '100%',
             textAlign: 'center',
@@ -152,7 +154,9 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
             color: '#FFD700',
             textShadow: '2px 2px 0px #8B4513, -1px -1px 0px #FFFFE0, 3px 3px 5px rgba(0,0,0,0.5)',
             transform: 'rotate(-6deg)',
-            fontSize: 'min(14vh, 120px)', /* Height-based sizing */
+            fontSize: '12vh', /* Fallback */
+            // @ts-ignore
+            fontSize: 'min(12vh, 120px)',
             zIndex: 40
           }}
          >
@@ -163,7 +167,7 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
         <h1 className="font-black tracking-widest leading-none"
             style={{
               position: 'absolute',
-              bottom: '10%',
+              top: '72%', /* Explicit Bottom area using top */
               left: 0,
               width: '100%',
               textAlign: 'center',
@@ -175,7 +179,9 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
               WebkitTextFillColor: 'transparent',
                filter: 'drop-shadow(0px 4px 6px rgba(0,0,0,0.5))',
                transform: 'scaleY(0.9)',
-               fontSize: 'min(10vh, 100px)', /* Height-based sizing */
+               fontSize: '8vh', /* Fallback */
+               // @ts-ignore
+               fontSize: 'min(10vh, 100px)',
                zIndex: 30
             }}
         >
