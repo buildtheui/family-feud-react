@@ -28,17 +28,6 @@ interface GameState {
 
 export const useGameStore = create<GameState>((set, get) => ({
   role: 'player',
-  currentQ: 0,
-  wrong: 0,
-  boardScore: 0,
-  team1Score: 0,
-  team2Score: 0,
-  flippedCards: new Set(),
-  questions: [],
-  allData: {},
-  currentAnswers: [],
-
-  role: 'player',
   hostAssigned: false,
   currentQ: 0,
   wrong: 0,

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { AnswerCard } from './AnswerCard';
 import { QuestionDisplay } from './QuestionDisplay';
 import { HostControls } from './HostControls';

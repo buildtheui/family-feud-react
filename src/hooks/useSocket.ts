@@ -60,7 +60,10 @@ export const useSocket = () => {
 
   useEffect(() => {
     // Connect to Socket.io server
-    socketRef.current = io('http://localhost:3456', {
+    // Use environment variable if set, otherwise relative path in prod (same server), or localhost in dev
+    const serverUrl = import.meta.env.VITE_SERVER_URL || (import.meta.env.PROD ? '/' : 'http://localhost:3456');
+    
+    socketRef.current = io(serverUrl, {
       transports: ['websocket', 'polling'],
     });
 
