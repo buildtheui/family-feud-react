@@ -26,7 +26,8 @@ const io = new Server(server, {
 const port = Number(process.env.PORT) || 3456;
 
 // Handle SPA routing: serve index.html for any unknown route
-app.get('*', (req, res) => {
+// Note: Express 5 requires regex or named params for catch-all
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(distPath, 'index.html'));
 });
 
