@@ -4,6 +4,7 @@ import { QuestionDisplay } from './QuestionDisplay';
 import { HostControls } from './HostControls';
 import { WrongAnswerDisplay } from './WrongAnswerDisplay';
 import { AnimatedScore } from './AnimatedScore';
+import { WelcomeScreen } from './WelcomeScreen';
 import { useGameStore } from '../hooks/useGameState';
 import { useSocket } from '../hooks/useSocket';
 
@@ -113,16 +114,7 @@ export const GameBoard = () => {
   };
 
   if (!audioEnabled) {
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90">
-        <button
-          onClick={enableAudio}
-          className="start-button animate-pulse"
-        >
-          Comenzar Juego
-        </button>
-      </div>
-    );
+    return <WelcomeScreen onStart={enableAudio} />;
   }
 
   return (

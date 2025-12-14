@@ -49,10 +49,26 @@ body {
   border: 5px solid var(--game-border);
   text-align: center;
   border-radius: 50%;
-  background: url('/img/background.svg') var(--game-bg);
+  background-color: var(--game-bg);
+  box-shadow: 0 1px 24px 1px rgba(0, 0, 0, 0.48);
+  overflow: hidden; /* Ensure pseudo-element respects border radius */
+  z-index: 0; /* Establish stacking context */
+}
+
+/* Pseudo-element for background image opacity */
+.game-board::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/img/background.svg');
   background-repeat: repeat;
   background-position: center center;
-  box-shadow: 0 1px 24px 1px rgba(0, 0, 0, 0.48);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* Score Boxes */
