@@ -57,6 +57,7 @@ export const useSocket = () => {
   const awardPoints = useGameStore((state) => state.awardPoints);
   const nextQuestion = useGameStore((state) => state.nextQuestion);
   const incrementWrong = useGameStore((state) => state.incrementWrong);
+  const reset = useGameStore((state) => state.reset);
 
   useEffect(() => {
     // Connect to Socket.io server
@@ -123,6 +124,10 @@ export const useSocket = () => {
           stopDrumRoll();
           playSound(errorRef.current);
           incrementWrong();
+          break;
+        case 'resetGame':
+          stopDrumRoll();
+          reset();
           break;
       }
     });

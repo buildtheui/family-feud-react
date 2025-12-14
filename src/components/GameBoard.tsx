@@ -14,6 +14,7 @@ export const GameBoard = () => {
   const hostAssigned = useGameStore((state) => state.hostAssigned);
   const setRole = useGameStore((state) => state.setRole);
   const setHostAssigned = useGameStore((state) => state.setHostAssigned);
+  const reset = useGameStore((state) => state.reset);
   const currentAnswers = useGameStore((state) => state.currentAnswers);
   const flippedCards = useGameStore((state) => state.flippedCards);
   const flipCard = useGameStore((state) => state.flipCard);
@@ -67,6 +68,13 @@ export const GameBoard = () => {
     emit('playDrumRoll');
   };
 
+  const handleReset = () => {
+    if (confirm('¿Estás seguro de que quieres reiniciar el juego? Se borrarán todos los puntos.')) {
+      reset();
+      emit('resetGame');
+    }
+  };
+
   // Generate answer cards (always show 10 cards)
   const maxCards = 10;
   const cards = Array.from({ length: maxCards }, (_, i) => {
@@ -110,10 +118,19 @@ export const GameBoard = () => {
   return (
     <div className={`game-board ${isHost ? 'host-mode' : ''}`}>
       {/* Board Score - Center Top */}
-      <div style={{ gridArea: 'scoreM' }} className="flex items-center justify-center">
+      <div style={{ gridArea: 'scoreM' }} className="flex items-center justify-center relative">
         <div className="score-box">
           <AnimatedScore value={boardScore} />
         </div>
+        {isHost && (
+          <button
+            onClick={handleReset}
+            className="absolute left-[calc(100%+20px)] top-1/2 -translate-y-1/2 px-4 py-2 text-sm font-bold text-white bg-red-600 border-2 border-white rounded-lg shadow-lg hover:bg-red-700 whitespace-nowrap"
+            title="Reiniciar Juego"
+          >
+            ⚠️ Reiniciar
+          </button>
+        )}
       </div>
 
       {/* Team 1 Score - Left */}

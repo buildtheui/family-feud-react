@@ -18,7 +18,8 @@ export type SocketEvent =
   | 'newQuestion'
   | 'wrong'
   | 'hostAssigned'
-  | 'playDrumRoll';
+  | 'playDrumRoll'
+  | 'resetGame';
 
 export interface SocketEventData {
   trigger: SocketEvent;
