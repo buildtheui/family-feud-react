@@ -1,0 +1,162 @@
+import { useState } from 'react';
+import { AnswerCard } from './AnswerCard';
+import { QuestionDisplay } from './QuestionDisplay';
+import { HostControls } from './HostControls';
+import { WrongAnswerDisplay } from './WrongAnswerDisplay';
+import { AnimatedScore } from './AnimatedScore';
+import { useGameStore } from '../hooks/useGameState';
+import { useSocket } from '../hooks/useSocket';
+
+export const GameBoard = () => {
+  const [showHostButton, setShowHostButton] = useState(true);
+  const { emit } = useSocket();
+
+  const role = useGameStore((state) => state.role);
+  const setRole = useGameStore((state) => state.setRole);
+  const currentAnswers = useGameStore((state) => state.currentAnswers);
+  const flippedCards = useGameStore((state) => state.flippedCards);
+  const flipCard = useGameStore((state) => state.flipCard);
+  const awardPoints = useGameStore((state) => state.awardPoints);
+  const nextQuestion = useGameStore((state) => state.nextQuestion);
+  const incrementWrong = useGameStore((state) => state.incrementWrong);
+  const boardScore = useGameStore((state) => state.boardScore);
+  const team1Score = useGameStore((state) => state.team1Score);
+  const team2Score = useGameStore((state) => state.team2Score);
+  const wrong = useGameStore((state) => state.wrong);
+  const questions = useGameStore((state) => state.questions);
+  const currentQ = useGameStore((state) => state.currentQ);
+
+  const handleMakeHost = () => {
+    setRole('host');
+    setShowHostButton(false);
+    emit('hostAssigned');
+  };
+
+  const handleFlipCard = (index: number) => {
+    flipCard(index);
+    emit('flipCard', { num: index });
+  };
+
+  const handleAwardTeam1 = () => {
+    awardPoints(1);
+    emit('awardTeam1');
+  };
+
+  const handleAwardTeam2 = () => {
+    awardPoints(2);
+    emit('awardTeam2');
+  };
+
+  const handleNewQuestion = () => {
+    nextQuestion();
+    emit('newQuestion');
+  };
+
+  const handleWrong = () => {
+    incrementWrong();
+    emit('wrong');
+  };
+
+  const handleDrumRoll = () => {
+    emit('playDrumRoll');
+  };
+
+  // Generate answer cards (always show 10 cards)
+  const maxCards = 10;
+  const cards = Array.from({ length: maxCards }, (_, i) => {
+    const answer = currentAnswers[i] || null;
+    return {
+      answer,
+      index: i,
+      isFlipped: flippedCards.has(i),
+      isEmpty: !answer,
+    };
+  });
+
+  const currentQuestion = questions[currentQ] || 'Loading...';
+  const isHost = role === 'host';
+
+  const [audioEnabled, setAudioEnabled] = useState(false);
+
+  const enableAudio = () => {
+    setAudioEnabled(true);
+    // Try to unlock audio context by playing and immediately pausing a silent sound
+    const audio = new Audio();
+    audio.play().catch(() => {}).finally(() => audio.pause());
+  };
+
+  if (!audioEnabled) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90">
+        <button
+          onClick={enableAudio}
+          className="px-8 py-4 text-2xl font-bold text-white transition-transform bg-green-600 rounded-lg shadow-lg hover:scale-105 active:scale-95 animate-pulse"
+        >
+          Start Game
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className={`game-board ${isHost ? 'host-mode' : ''}`}>
+      {/* Board Score - Center Top */}
+      <div style={{ gridArea: 'scoreM' }} className="flex items-center justify-center">
+        <div className="score-box">
+          <AnimatedScore value={boardScore} />
+        </div>
+      </div>
+
+      {/* Team 1 Score - Left */}
+      <div style={{ gridArea: 'scoreT1' }} className="flex items-center justify-center">
+        <div className="score-box">
+          <AnimatedScore value={team1Score} />
+        </div>
+      </div>
+
+      {/* Team 2 Score - Right */}
+      <div style={{ gridArea: 'scoreT2' }} className="flex items-center justify-center">
+        <div className="score-box">
+          <AnimatedScore value={team2Score} />
+        </div>
+      </div>
+
+      {/* Main Board */}
+      <div style={{ gridArea: 'main' }} className="w-[70vw] mx-auto relative">
+        <QuestionDisplay question={currentQuestion} />
+
+        {/* Answers Grid */}
+        <div className="col-holder">
+          {cards.map(({ answer, index, isFlipped, isEmpty }) => (
+            <AnswerCard
+              key={index}
+              answer={answer}
+              index={index}
+              isFlipped={isFlipped}
+              isEmpty={isEmpty}
+              isHost={isHost}
+              onFlip={handleFlipCard}
+            />
+          ))}
+        </div>
+
+        {/* Wrong Answer Display */}
+        <WrongAnswerDisplay wrongCount={wrong} />
+      </div>
+
+      {/* Host Controls */}
+      <div style={{ gridArea: 'host' }} className="flex items-center justify-center">
+        <HostControls
+          onMakeHost={handleMakeHost}
+          onAwardTeam1={handleAwardTeam1}
+          onAwardTeam2={handleAwardTeam2}
+          onNewQuestion={handleNewQuestion}
+          onWrong={handleWrong}
+          onDrumRoll={handleDrumRoll}
+          showHostButton={showHostButton}
+          isHost={isHost}
+        />
+      </div>
+    </div>
+  );
+};
