@@ -58,26 +58,13 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
         alignItems: 'center',
         justifyContent: 'center'
       }}
-      onClick={handleManualPlay} // Try to enable audio on any click if blocked
+      onClick={handleManualPlay}
     >
-      {/* Background Star Effect */}
-      <div 
-        className="absolute opacity-30" 
-        style={{ 
-          top: 0, 
-          left: 0, 
-          width: '100%', 
-          height: '100%', 
-          background: 'url("/img/background.svg") repeat',
-          zIndex: 0
-        }}
-      ></div>
-
       {/* Top Text "Bienvenidos aaaaa!" - Absolute Positioned */}
        <div 
          style={{ 
            position: 'absolute',
-           top: '10%',
+           top: '8%',
            width: '100%',
            textAlign: 'center',
            zIndex: 20
@@ -87,7 +74,7 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
            className="font-bold text-white tracking-wider" 
            style={{ 
              textShadow: '0 0 10px #00ffff',
-             fontSize: 'min(5vw, 40px)', 
+             fontSize: 'min(6vh, 40px)', 
              display: 'inline-block'
            }}
          >
@@ -111,8 +98,8 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
              // Explicit dimensions
              width: '80vw',
              maxWidth: '800px',
-             height: '50vh',
-             maxHeight: '500px',
+             height: '55vh', /* Slightly taller to fit text */
+             maxHeight: '550px',
              zIndex: 10,
              // Hardware hack
              WebkitTransform: 'translate(-50%, -50%) translateZ(0)'
@@ -135,7 +122,7 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
         <h1 className="font-black leading-none tracking-tighter"
             style={{
               position: 'absolute',
-              top: '10%',
+              top: '5%',
               left: 0,
               width: '100%',
               textAlign: 'center',
@@ -146,7 +133,7 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               filter: 'drop-shadow(0px 4px 6px rgba(0,0,0,0.5))',
-              fontSize: 'min(15vw, 150px)',
+              fontSize: 'min(18vh, 150px)', /* Height-based sizing */
               zIndex: 30
             }}
         >
@@ -157,7 +144,7 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
          <h1 className="font-bold"
           style={{
             position: 'absolute',
-            top: '40%',
+            top: '38%',
             left: 0,
             width: '100%',
             textAlign: 'center',
@@ -165,7 +152,7 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
             color: '#FFD700',
             textShadow: '2px 2px 0px #8B4513, -1px -1px 0px #FFFFE0, 3px 3px 5px rgba(0,0,0,0.5)',
             transform: 'rotate(-6deg)',
-            fontSize: 'min(12vw, 120px)',
+            fontSize: 'min(14vh, 120px)', /* Height-based sizing */
             zIndex: 40
           }}
          >
@@ -176,7 +163,7 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
         <h1 className="font-black tracking-widest leading-none"
             style={{
               position: 'absolute',
-              bottom: '15%',
+              bottom: '10%',
               left: 0,
               width: '100%',
               textAlign: 'center',
@@ -188,7 +175,7 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
               WebkitTextFillColor: 'transparent',
                filter: 'drop-shadow(0px 4px 6px rgba(0,0,0,0.5))',
                transform: 'scaleY(0.9)',
-               fontSize: 'min(10vw, 100px)',
+               fontSize: 'min(10vh, 100px)', /* Height-based sizing */
                zIndex: 30
             }}
         >
@@ -199,7 +186,7 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
       {/* Start Button - Absolute Centered Bottom */}
       <div style={{
           position: 'absolute',
-          bottom: '10%',
+          bottom: '8%',
           width: '100%',
           textAlign: 'center',
           zIndex: 50
@@ -208,8 +195,8 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
           onClick={onStart}
           className="start-button animate-pulse"
           style={{ 
-            fontSize: '1.8rem', 
-            padding: '1.2rem 3rem', 
+            fontSize: 'min(5vh, 1.8rem)', 
+            padding: 'min(2vh, 1.2rem) min(5vw, 3rem)',
             boxShadow: '0 0 20px rgba(0,255,0,0.6)',
             display: 'inline-block'
           }}
