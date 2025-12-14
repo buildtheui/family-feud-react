@@ -117,7 +117,7 @@ export const GameBoard = () => {
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90">
         <button
           onClick={enableAudio}
-          className="px-8 py-4 text-2xl font-bold text-white transition-transform bg-green-600 rounded-lg shadow-lg hover:scale-105 active:scale-95 animate-pulse"
+          className="start-button animate-pulse"
         >
           Comenzar Juego
         </button>

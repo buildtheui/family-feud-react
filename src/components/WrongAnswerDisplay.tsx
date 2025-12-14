@@ -28,7 +28,7 @@ export const WrongAnswerDisplay = ({ wrongCount }: WrongAnswerDisplayProps) => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.5 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
-          className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center pointer-events-none z-50"
+          className="overlay-full"
         >
           {[1, 2, 3].map((num) => (
             <img

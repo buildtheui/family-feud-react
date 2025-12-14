@@ -258,3 +258,41 @@ body {
   right: auto;
   margin: auto 0;
 }
+
+/* Explicit Start Button for TV Box Compatibility */
+.start-button {
+  background-color: #16a34a; /* Green 600 */
+  color: white;
+  border-radius: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transition: transform 0.15s ease-in-out;
+  border: 2px solid white;
+  cursor: pointer;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.start-button:hover {
+  transform: scale(1.05);
+  background-color: #15803d; /* Green 700 */
+}
+
+.start-button:active {
+  transform: scale(0.95);
+}
+
+/* Robust Overlay for TV Box */
+.overlay-full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
