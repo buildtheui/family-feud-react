@@ -73,7 +73,7 @@ export const GameBoard = () => {
     };
   });
 
-  const currentQuestion = questions[currentQ] || 'Loading...';
+  const currentQuestion = questions[currentQ] || 'Cargando...';
   const isHost = role === 'host';
 
   const [audioEnabled, setAudioEnabled] = useState(false);
@@ -92,7 +92,7 @@ export const GameBoard = () => {
           onClick={enableAudio}
           className="px-8 py-4 text-2xl font-bold text-white transition-transform bg-green-600 rounded-lg shadow-lg hover:scale-105 active:scale-95 animate-pulse"
         >
-          Start Game
+          Comenzar Juego
         </button>
       </div>
     );

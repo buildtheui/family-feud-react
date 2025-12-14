@@ -27,8 +27,8 @@ export const HostControls = ({
     <div className="flex flex-col items-center justify-center gap-2">
       {isHost && (
         <div className="flex justify-center w-full">
-           <button onClick={onDrumRoll} className="game-button mb-2">
-            🥁 Play Drum Roll
+           <button onClick={onDrumRoll} className="game-button mb-2 !w-fit px-3 rounded-full">
+            🥁 Reproducir redoble
           </button>
         </div>
       )}
@@ -36,18 +36,18 @@ export const HostControls = ({
       <div className="flex items-center justify-center">
         {showHostButton && !isHost && (
           <button onClick={onMakeHost} className="game-button">
-            Be the host
+            Ser el anfitrión
           </button>
         )}
 
         {isHost && (
           <>
             <button onClick={onAwardTeam1} className="game-button left-round">
-              Award Team 1
+              Puntos Equipo 1
             </button>
             
             <button onClick={onNewQuestion} className="game-button">
-              New Question
+              Nueva Pregunta
             </button>
             
             <button onClick={onWrong} className="game-button wrong-button">
@@ -55,7 +55,7 @@ export const HostControls = ({
             </button>
             
             <button onClick={onAwardTeam2} className="game-button right-round">
-              Award Team 2
+              Puntos Equipo 2
             </button>
           </>
         )}
