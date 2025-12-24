@@ -142,7 +142,7 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
           10
         </h1>
 
-        {/* "Olayas" - Gold Script - Absolute in Oval */}
+        {/* "familias" - Gold Script - Absolute in Oval */}
          <h1 className="font-bold"
           style={{
             position: 'absolute',
@@ -160,7 +160,7 @@ export const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
             zIndex: 40
           }}
          >
-           Olayas
+           Familias
          </h1>
 
         {/* "DICEN" - Metallic Bottom - Absolute in Oval */}
